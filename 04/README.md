@@ -38,3 +38,37 @@ $ php yii migrate
 Copie os arquivo para o diretório raiz de seu servidor web e acesse:
 
  * http://localhost/web/
+
+## API
+### Tarefa
+#### Index
+
+Retorna a lista de tarefas.
+
+* http://localhost/web/tarefa/index (GET)
+
+##### Response
+
+#### Create
+
+Cria uma tarefa e retorna seu id.
+
+* http://localhost/web/tarefa/create (POST)
+
+#### Update
+
+Atualizar uma tarefa.
+
+* http://localhost/web/tarefa/update/{$id} (POST)
+
+#### Delete
+
+Delete uma tarefa.
+
+* http://localhost/web/tarefa/delete/{$id} (DELETE)
+
+#### Order
+
+Ordena as tarefas.
+
+* http://localhost/web/tarefa/order (POST)
