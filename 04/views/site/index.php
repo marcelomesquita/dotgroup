@@ -46,7 +46,7 @@ function carregarTarefas() {
             } else {
                 $.each(json.tarefas, function(i, tarefa) {
                     $(".tarefas").append(panel(tarefa));
-				});
+                });
             }
         },
         error: function(error) {

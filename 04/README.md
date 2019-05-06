@@ -5,8 +5,8 @@ A aplicação foi criada utilizando o template básico do Yii 2 (http://www.yiif
 ### Diretórios
 Conceder privilégio de escrita para a aplicação aos seguintes diretórios:
 ```
-	runtime/            contém os arquivos gerados em tempo de execução
-	web/assets/         contém os arquivos utilizados pela página web
+    runtime/            contém os arquivos gerados em tempo de execução
+    web/assets/         contém os arquivos utilizados pela página web
 ```
 
 ~~~
@@ -52,26 +52,26 @@ Retorna a lista de tarefas.
 
 ```json
 {
-	tarefas: [
-		{
-			id: 1,
-			titulo: "Tarefa 1",
-			descricao: "Lorem",
-			prioridade: 1
-		},
-		{
-			id: 2,
-			titulo: "Tarefa 2",
-			descricao: "Ipsum",
-			prioridade: 2
-		},
-		{
-			id: 3,
-			titulo: "Tarefa 3",
-			descricao: "Sit amet",
-			prioridade: 3
-		}
-	]
+    "tarefas": [
+        {
+            "id": 1,
+            "titulo": "Tarefa 1",
+            "descricao": "Lorem",
+            "prioridade": 1
+        },
+        {
+            "id": 2,
+            "titulo": "Tarefa 2",
+            "descricao": "Ipsum",
+            "prioridade": 2
+        },
+        {
+            "id": 3,
+            "titulo": "Tarefa 3",
+            "descricao": "Sit amet",
+            "prioridade": 3
+        }
+    ]
 }
 ```
 
@@ -85,11 +85,11 @@ Cria uma tarefa e retorna seu id.
 
 ```json
 {
-	tarefa: {
-		titulo: "Tarefa 4",
-		descricao: "Dolor",
-		prioridade: 4
-	}
+    "tarefa": {
+        "titulo": "Tarefa 4",
+        "descricao": "Dolor",
+        "prioridade": 4
+    }
 }
 ```
 
@@ -97,13 +97,13 @@ Cria uma tarefa e retorna seu id.
 
 ```json
 {
-	tarefa: {
-		id: 4,
-		titulo: "Tarefa 4",
-		descricao: "Dolor",
-		prioridade: 4
-	},
-	mensagem: "Tarefa cadastrada com sucesso"
+    "tarefa": {
+        "id": 4,
+        "titulo": "Tarefa 4",
+        "descricao": "Dolor",
+        "prioridade": 4
+    },
+    "mensagem": "Tarefa cadastrada com sucesso"
 }
 ```
 
@@ -117,12 +117,12 @@ Atualizar uma tarefa.
 
 ```json
 {
-	tarefa: {
-		id: 4,
-		titulo: "Tarefa 4",
-		descricao: "Lorem",
-		prioridade: 2
-	}
+    "tarefa": {
+        "id": 4,
+        "titulo": "Tarefa 4",
+        "descricao": "Lorem",
+        "prioridade": 2
+    }
 }
 ```
 
@@ -130,7 +130,7 @@ Atualizar uma tarefa.
 
 ```json
 {
-	mensagem: "Tarefa atualizada com sucesso"
+    "mensagem": "Tarefa atualizada com sucesso"
 }
 ```
 
@@ -145,7 +145,7 @@ Delete uma tarefa.
 
 ```json
 {
-	mensagem: "Tarefa deletada com sucesso"
+    "mensagem": "Tarefa deletada com sucesso"
 }
 ```
 
@@ -159,24 +159,24 @@ Ordena as tarefas.
 
 ```json
 {
-	tarefas: [
-		{
-			id: 1,
-			prioridade: 1
-		},
-		{
-			id: 2,
-			prioridade: 2
-		},
-		{
-			id: 3,
-			prioridade: 3
-		},
-		{
-			id: 4,
-			prioridade: 4
-		}
-	]
+    "tarefas": [
+        {
+            "id": 1,
+            "prioridade": 1
+        },
+        {
+            "id": 2,
+            "prioridade": 2
+        },
+        {
+            "id": 3,
+            "prioridade": 3
+        },
+        {
+            "id": 4,
+            "prioridade": 4
+        }
+    ]
 }
 ```
 
@@ -184,6 +184,6 @@ Ordena as tarefas.
 
 ```json
 {
-	mensagem: "Tarefas ordenadas com sucesso"
+    "mensagem": "Tarefas ordenadas com sucesso"
 }
 ```
