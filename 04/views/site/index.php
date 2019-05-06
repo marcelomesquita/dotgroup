@@ -64,13 +64,15 @@ function panel(tarefa = {id: null, prioridade: 0, titulo: "", descricao: ""}) {
 
 	panel += "<div class=\"panel panel-default tarefa\" id=\"tarefa-" + tarefa.id + "\">";
 	panel += "<div class=\"panel-heading\">";
+	panel += "<a href=\"#tarefa-content-" + tarefa.id + "\" class=\"text-muted titulo\" data-toggle=\"collapse\">";
 	panel += tarefa.titulo == "" ? "nova tarefa" : tarefa.titulo;
-	panel += "<button type=\"button\" class=\"close deletar\"><span aria-hidden=\"true\">&times;</span></button>";
+	panel += "</a>";
+	panel += "<a href=\"#\" class=\"close deletar\"><span>&times;</span></a>";
 	panel += "</div>";
-	panel += "<div class=\"panel-body\">";
+	panel += "<div class=\"panel-body collapse " + (tarefa.id == null ? "in" : "") + "\" id=\"tarefa-content-" + tarefa.id + "\">";
 	panel += "<form>";
 	panel += "<input type=\"hidden\" name=\"id\" value=\"" + tarefa.id + "\" />";
-	panel += "<input type=\"hidden\" name=\"prioridade\" value=\"" + (tarefa.prioridade == 0 ? prioridade : tarefa.prioridade) + "\" />";
+	panel += "<input type=\"hidden\" name=\"prioridade\" value=\"" + (tarefa.prioridade == 0 ? prioridade++ : tarefa.prioridade) + "\" />";
 	panel += "<div class=\"form-group titulo\">";
 	panel += "<input type=\"text\" name=\"titulo\" value=\"" + tarefa.titulo + "\" class=\"form-control\" placeholder=\"titulo\" autofocus />";
 	panel += "<p class=\"help-block\"></p>";
@@ -123,6 +125,7 @@ $(".tarefas").on("submit", ".tarefa form", function(e) {
         success: function(json) {
 			if (nova) {
 				panel.find("input[name=\"id\"]").val(json.tarefa.id);
+				panel.find(".titulo").html(json.tarefa.titulo);
 			}
 
 			panel.find("input[name=\"titulo\"]").focus();
@@ -132,7 +135,7 @@ $(".tarefas").on("submit", ".tarefa form", function(e) {
         error: function(error) {
             alert(error.statusText);
         }
-    });	
+    });
 });
 
 $(".tarefas").on("click", ".deletar", function() {
@@ -140,7 +143,7 @@ $(".tarefas").on("click", ".deletar", function() {
 	var tarefa = {
 		id: panel.find("input[name=\"id\"]").val()
 	};
-	
+
 	$.ajax({
 		url: "' . Url::toRoute('tarefa/delete') . '?id=" + tarefa.id,
 		method: "DELETE",
@@ -158,6 +161,6 @@ $(".tarefas").on("click", ".deletar", function() {
         error: function(error) {
             alert(error.statusText);
         }
-	});	
+	});
 });
 ');
