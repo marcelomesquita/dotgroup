@@ -41,7 +41,7 @@ AppAsset::register($this);
             ?>
 
             <div class="container">
-				<div id="carregando" style="display: none; text-align: center;">carregando...</div>
+                <div id="carregando" style="display: none; text-align: center;">carregando...</div>
                 <?php echo Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []]) ?>
                 <?php echo Alert::widget() ?>
                 <?php echo $content ?>

@@ -43,10 +43,10 @@ class TarefaSearch extends Tarefa
         $query = Tarefa::find();
 
         $dataProvider = new ActiveDataProvider([
-			'query' => $query,
-			'sort' => ['defaultOrder' => ['prioridade'=> SORT_ASC]],
-			'pagination' => false
-		]);
+            'query' => $query,
+            'sort' => ['defaultOrder' => ['prioridade'=> SORT_ASC]],
+            'pagination' => false
+        ]);
 
         $this->load($params);
 
@@ -56,9 +56,9 @@ class TarefaSearch extends Tarefa
 
         // grid filtering conditions
         $query->andFilterWhere(['id' => $this->id]);
-		$query->andFilterWhere(['prioridade' => $this->prioridade]);
+        $query->andFilterWhere(['prioridade' => $this->prioridade]);
         $query->andFilterWhere(['like', 'titulo', $this->titulo]);
-		$query->andFilterWhere(['like', 'descricao', $this->descricao]);
+        $query->andFilterWhere(['like', 'descricao', $this->descricao]);
 
         return $dataProvider;
     }

@@ -39,20 +39,16 @@ class TarefaController extends Controller
      */
     public function actionIndex()
     {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
         $searchModel = new TarefaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        if (Yii::$app->request->isAjax) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
+        $output = [
+            'tarefas' => $dataProvider->getModels()
+        ];
 
-            $output = [
-                'tarefas' => $dataProvider->getModels()
-            ];
-            
-            return $output;
-        } else {
-            return $this->render('index', ['searchModel' => $searchModel, 'dataProvider' => $dataProvider]);
-        }
+        return $output;
     }
 
     /**
@@ -70,13 +66,13 @@ class TarefaController extends Controller
                 'tarefa' => $model,
                 'mensagem' => 'Tarefa cadastrada com sucesso!'
             ];
-            
+
             return $output;
         } else {
             $output = [
                 'mensagem' => "Falha ao cadastrar tarefa!\n" . implode("\n", $model->getFirstErrors())
             ];
-            
+
             return $output;
         }
     }
@@ -103,7 +99,7 @@ class TarefaController extends Controller
             $output = [
                 'mensagem' => "Falha ao atualizar tarefa!\n" . implode("\n", $model->getFirstErrors())
             ];
-            
+
             return $output;
         }
     }
@@ -119,7 +115,7 @@ class TarefaController extends Controller
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $model = $this->findModel($id);
-        
+
         if ($model->delete()) {
             $output = [
                 'mensagem' => 'Tarefa deletada com sucesso!'
@@ -130,7 +126,7 @@ class TarefaController extends Controller
             $output = [
                 'mensagem' => 'Falha ao deletar tarefa!'
             ];
-            
+
             return $output;
         }
     }
