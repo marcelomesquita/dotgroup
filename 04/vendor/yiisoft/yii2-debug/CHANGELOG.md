@@ -1,6 +1,18 @@
 Yii Framework 2 debug extension Change Log
 ==========================================
 
+2.1.3 April 30, 2019
+--------------------
+
+- Enh #375: Made var dumper in `DumpPanel` extensible with `varDumpCallback` (Sarke)
+
+
+2.1.2 April 23, 2019
+--------------------
+
+- Bug: ⚠️ in MailPanel was not a string (samdark)
+
+
 2.1.1 March 30, 2019
 --------------------
 

@@ -105,6 +105,31 @@ class TarefaController extends Controller
     }
 
     /**
+     * Updates the order of the list.
+     * @return mixed
+     */
+    public function actionOrder()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $tarefas = Yii::$app->request->post("tarefas");
+
+        foreach ($tarefas as $tarefa) {
+            $model = $this->findModel((int) $tarefa['id']);
+
+            $model->prioridade = (int) $tarefa['prioridade'];
+
+            $model->save();
+        }
+
+        $output = [
+            'mensagem' => 'Tarefas ordenadas com sucesso!'
+        ];
+
+        return $output;
+    }
+
+    /**
      * Deletes an existing Tarefa model.
      * @param integer $id
      * @return mixed

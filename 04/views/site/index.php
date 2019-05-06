@@ -46,7 +46,7 @@ function carregarTarefas() {
             } else {
                 $.each(json.tarefas, function(i, tarefa) {
                     $(".tarefas").append(panel(tarefa));
-                });
+				});
             }
         },
         error: function(error) {
@@ -55,16 +55,14 @@ function carregarTarefas() {
     });
 }
 
-function panel(tarefa = {id: null, prioridade: 0, titulo: "", descricao: ""}) {
-    if (prioridade <= tarefa.prioridade) {
-        prioridade = tarefa.prioridade + 1;
-    }
-
+function panel(tarefa = {id: null, titulo: "", descricao: ""}) {
     var panel = "";
+
+    prioridade++;
 
     panel += "<div class=\"panel panel-default tarefa\" id=\"tarefa-" + tarefa.id + "\">";
     panel += "<div class=\"panel-heading\">";
-    panel += "<a href=\"#tarefa-content-" + tarefa.id + "\" class=\"text-muted titulo\" data-toggle=\"collapse\">";
+    panel += "<a href=\"#tarefa-content-" + tarefa.id + "\" class=\"text-muted cabecalho\" data-toggle=\"collapse\">";
     panel += tarefa.titulo == "" ? "nova tarefa" : tarefa.titulo;
     panel += "</a>";
     panel += "<a href=\"#\" class=\"close deletar\"><span>&times;</span></a>";
@@ -72,7 +70,7 @@ function panel(tarefa = {id: null, prioridade: 0, titulo: "", descricao: ""}) {
     panel += "<div class=\"panel-body collapse " + (tarefa.id == null ? "in" : "") + "\" id=\"tarefa-content-" + tarefa.id + "\">";
     panel += "<form>";
     panel += "<input type=\"hidden\" name=\"id\" value=\"" + tarefa.id + "\" />";
-    panel += "<input type=\"hidden\" name=\"prioridade\" value=\"" + (tarefa.prioridade == 0 ? prioridade++ : tarefa.prioridade) + "\" />";
+    panel += "<input type=\"hidden\" name=\"prioridade\" value=\"" + prioridade + "\" />";
     panel += "<div class=\"form-group titulo\">";
     panel += "<input type=\"text\" name=\"titulo\" value=\"" + tarefa.titulo + "\" class=\"form-control\" placeholder=\"titulo\" autofocus />";
     panel += "<p class=\"help-block\"></p>";
@@ -125,7 +123,7 @@ $(".tarefas").on("submit", ".tarefa form", function(e) {
         success: function(json) {
             if (nova) {
                 panel.find("input[name=\"id\"]").val(json.tarefa.id);
-                panel.find(".titulo").html(json.tarefa.titulo);
+                panel.find(".cabecalho").html(json.tarefa.titulo);
             }
 
             panel.find("input[name=\"titulo\"]").focus();
@@ -144,9 +142,52 @@ $(".tarefas").on("click", ".deletar", function() {
         id: panel.find("input[name=\"id\"]").val()
     };
 
+    if (isNaN(tarefa.id)) {
+        panel.remove();
+    } else {
+        $.ajax({
+            url: "' . Url::toRoute('tarefa/delete') . '?id=" + tarefa.id,
+            method: "DELETE",
+            beforeSend: function() {
+                $("#carregando").show();
+            },
+            complete: function() {
+                $("#carregando").hide();
+            },
+            success: function(json) {
+                panel.remove();
+
+                alert(json.mensagem);
+            },
+            error: function(error) {
+                alert(error.statusText);
+            }
+        });
+    }
+});
+
+$(".tarefas").sortable({stop: function(event, ui) {}});
+
+$(".tarefas").on("sortstop", function(event, ui) {
+    var itens = [];
+
+    $(".tarefas .tarefa").each(function(i, tarefa) {
+        $(tarefa).find("input[name=\"prioridade\"]").val(++i);
+
+        var item = {
+            id: $(tarefa).find("input[name=\"id\"]").val(),
+            prioridade: $(tarefa).find("input[name=\"prioridade\"]").val()
+        };
+
+        itens.push(item);
+    });
+
     $.ajax({
-        url: "' . Url::toRoute('tarefa/delete') . '?id=" + tarefa.id,
-        method: "DELETE",
+        url: "' . Url::toRoute('tarefa/order') . '",
+        method: "POST",
+        data: {
+            tarefas: itens
+        },
         beforeSend: function() {
             $("#carregando").show();
         },
@@ -154,8 +195,6 @@ $(".tarefas").on("click", ".deletar", function() {
             $("#carregando").hide();
         },
         success: function(json) {
-            panel.remove();
-
             alert(json.mensagem);
         },
         error: function(error) {
@@ -163,4 +202,5 @@ $(".tarefas").on("click", ".deletar", function() {
         }
     });
 });
+
 ');
